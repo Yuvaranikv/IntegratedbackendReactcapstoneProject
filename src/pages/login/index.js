@@ -6,6 +6,7 @@ import "./styles.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import apiClient from '../../api/axiosConfig';
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -17,10 +18,13 @@ const LoginPage = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post("http://localhost:3000/userstest/", { username, password });
+      const response = await apiClient.post("/api/Authentication/login", { username, password });
+    //  const response = await axios.post("http://localhost:3000/userstest/", { username, password });
       console.log(response.data);
 
       if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem("jwtToken", token);
         console.log("Redirecting to home page...");
         navigate('/books/menu');
      }
