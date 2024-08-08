@@ -1,0 +1,10 @@
+.fixed-size-image {
+    height:350px; /* Adjust height as needed */
+    object-fit: cover;
+  }
+
+  .zoom-on-hover:hover {
+    transform: scale(1.10);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
+  }

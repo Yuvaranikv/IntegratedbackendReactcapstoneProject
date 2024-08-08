@@ -1,0 +1,70 @@
+/* Adjust grid and button spacing */
+.ui.grid {
+  margin-top: 10px;
+}
+
+/* Center aligning the search input and button */
+.add-book-button-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Right aligning the search input and button */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px; /* Adjust margin as needed */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ui.grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .ui.grid .column {
+    width: 100%;
+  }
+
+  .add-book-button-container,
+  .search-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .right-aligned {
+    justify-content: flex-start;
+  }
+}
+
+ 
+.custom-datepicker {
+  width: 380%!important ;/* Adjust width as needed */
+  height: 38px; /* Increase height to match other fields */
+  font-size: 14px; /* Adjust font size */
+  padding: 8px; /* Adjust padding */
+}
+
+.ui.form{
+  padding-top: 0%!important;
+}
+ 
+.light-green-button {
+  background-color: #43b647!important; /* Light green color */
+  color: black!important;
+}
+
+.light-green-button:hover {
+  background-color: #08d108!important; /* Slightly darker light green color for hover effect */
+}
+
+.light-red-button {
+  background-color:rgba(255, 0, 0, 0.6)!important; /* Light green color */
+  color: black!important;
+}
+
+.light-red-button:hover {
+  background-color: #f7503a!important; /* Slightly darker light green color for hover effect */
+}

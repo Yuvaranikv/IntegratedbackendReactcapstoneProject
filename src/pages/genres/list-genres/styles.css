@@ -1,0 +1,17 @@
+.light-green-button {
+    background-color: #43b647!important; /* Light green color */
+    color: black!important;
+  }
+  
+  .light-green-button:hover {
+    background-color: #08d108!important; /* Slightly darker light green color for hover effect */
+  }
+  
+  .light-red-button {
+    background-color:rgba(255, 0, 0, 0.6)!important; /* Light green color */
+    color: black!important;
+  }
+  
+  .light-red-button:hover {
+    background-color: #f7503a!important; /* Slightly darker light green color for hover effect */
+  }

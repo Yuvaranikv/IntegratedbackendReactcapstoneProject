@@ -1,0 +1,18 @@
+/* src/components/Navbar.css */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .version-number {
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+  
+  .sidebar-menu .menu-content .active {
+    background-color: #0074D9!important; /* Change this to the color you prefer */
+    color: #ec0c0c!important; /* Change this to the text color you prefer */
+  }
