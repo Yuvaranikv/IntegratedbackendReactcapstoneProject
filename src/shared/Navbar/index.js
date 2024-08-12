@@ -47,12 +47,12 @@ const Navbar = () => {
           <Icon name="chart line" />
           Stock
         </Menu.Item> */}
-        <Menu.Item as={NavLink} to="/" activeClassName="active" onClick={handleSignoutClick}>
+        <Menu.Item as={NavLink} to="/" activeClassName="active" onClick={handleSignoutClick} style={{ marginTop: 650 }}>
           <Icon name="sign-out" />
           Sign-out
         </Menu.Item>
       </div>
-      <div className="profile-dropdown" style={{ marginTop: 380 }}>
+      {/* <div className="profile-dropdown" style={{ marginTop: 380 }}>
         <Dropdown
           item
           icon={null}
@@ -69,7 +69,7 @@ const Navbar = () => {
           options={dropdownOptions}
           direction="left"
         />
-      </div>
+      </div> */}
     </Sidebar>
   );
 };

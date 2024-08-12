@@ -50,7 +50,18 @@ const AuthorsList = () => {
 
   const fetchAllAuthors = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/authors/all?direction=${direction}`);
+      const token = localStorage.getItem("jwtToken");
+      console.log("token",token);
+      if (!token) {
+        navigate("/login"); // Redirect to login if token is missing
+        return;
+      }
+      const response = await axios.get(`http://localhost:3000/authors/all?direction=${direction}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Add the Authorization header
+        }
+      });
+     // const response = await axios.get(`http://localhost:3000/authors/all?direction=${direction}`);
       setAllAuthors(response.data);
       console.log("all",response);
     } catch (error) {
@@ -60,9 +71,18 @@ const AuthorsList = () => {
 
   const fetchAuthors = async () => {
     try {
+      const token = localStorage.getItem("jwtToken"); // Retrieve the JWT token from localStorage
       const response = await axios.get(
-        `http://localhost:3000/authors?page=${page}&limit=${pageSize}&direction=${direction}`
+        `http://localhost:3000/authors?page=${page}&limit=${pageSize}&direction=${direction}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}` // Add the Authorization header
+          }
+        }
       );
+      // const response = await axios.get(
+      //   `http://localhost:3000/authors?page=${page}&limit=${pageSize}&direction=${direction}`
+      // );
   
       const { authors, totalCount } = response.data;
   
@@ -88,7 +108,8 @@ const AuthorsList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setAuthorNameClicked(true);
-
+    const token = localStorage.getItem("jwtToken");
+    console.log("token",token);
     if (selectedAuthor) {
       try {
         const response = await axios.put(
@@ -96,6 +117,11 @@ const AuthorsList = () => {
           {
             name: authorName,
             biography: biography || null,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}` // Add the Authorization header
+            }
           }
         );
         fetchAuthors();
@@ -115,6 +141,11 @@ const AuthorsList = () => {
           {
             name: authorName,
             biography: biography || null,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}` // Add the Authorization header
+            }
           }
         );
         fetchAuthors();
@@ -142,9 +173,15 @@ const AuthorsList = () => {
   };
 
   const handleConfirmDelete = async () => {
+    const token = localStorage.getItem("jwtToken");
     try {
       await axios.delete(
-        `http://localhost:3000/authors/delete/${deleteAuthorId}`
+        `http://localhost:3000/authors/delete/${deleteAuthorId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}` // Add the Authorization header
+          }
+        }
       );
       toast.success("Author deleted successfully");
       fetchAuthors();
