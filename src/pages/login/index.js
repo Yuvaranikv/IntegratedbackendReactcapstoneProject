@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "semantic-ui-css/semantic.min.css";
-import { useNavigate } from 'react-router-dom';
+import { UNSAFE_useScrollRestoration, useNavigate } from 'react-router-dom';
 import { Form, Button, Grid, Header, Segment,Icon } from "semantic-ui-react";
 import "./styles.css";
 import axios from "axios";
@@ -18,13 +18,16 @@ const LoginPage = () => {
     e.preventDefault();
     
     try {
-      const response = await apiClient.post("/api/Authentication/login", { username, password });
+      const response = await apiClient.post("http://localhost:3000/api/Authentication/login", { username, password });
     //  const response = await axios.post("http://localhost:3000/userstest/", { username, password });
       console.log(response.data);
 
       if (response.status === 200) {
         const { token } = response.data;
+        localStorage.setItem("username",username);
+        localStorage.setItem("password",password);
         localStorage.setItem("jwtToken", token);
+        console.log(token);
         console.log("Redirecting to home page...");
         navigate('/books/menu');
      }

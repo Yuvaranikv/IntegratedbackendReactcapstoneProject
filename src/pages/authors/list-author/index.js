@@ -24,6 +24,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import _ from "lodash";
 import HomeHeader from "../../home/home-header";
+import apiClient from "../../../api/axiosConfig";
+
 
 const AuthorsList = () => {
   const [authors, setAuthors] = useState([]);
@@ -50,24 +52,37 @@ const AuthorsList = () => {
 
   const fetchAllAuthors = async () => {
     try {
-      const token = localStorage.getItem("jwtToken");
-      console.log("token",token);
-      if (!token) {
-        navigate("/login"); // Redirect to login if token is missing
-        return;
+      const username = localStorage.getItem("username");
+      const password = localStorage.getItem("password");
+  
+      // Get the JWT token by logging in
+      const responsetoken = await apiClient.post("http://localhost:3000/api/Authentication/login", { username, password });
+  
+      if (responsetoken.status === 200) {
+        const { token } = responsetoken.data; // Extract the token from the response
+        localStorage.setItem("jwtToken", token); // Store the token in localStorage
+        console.log("token", token);
+  
+        // Fetch all authors with the JWT token in the Authorization header
+        const response = await axios.get(
+          `http://localhost:3000/authors/all?direction=${direction}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the Authorization header
+              Accept: "application/json"
+            }
+          }
+        );
+  
+        // Set the response data to your state
+        setAllAuthors(response.data);
+        console.log("all", response);
       }
-      const response = await axios.get(`http://localhost:3000/authors/all?direction=${direction}`, {
-        headers: {
-          Authorization: `Bearer ${token}` // Add the Authorization header
-        }
-      });
-     // const response = await axios.get(`http://localhost:3000/authors/all?direction=${direction}`);
-      setAllAuthors(response.data);
-      console.log("all",response);
     } catch (error) {
       console.error("Error fetching all authors:", error);
     }
   };
+  
 
   const fetchAuthors = async () => {
     try {

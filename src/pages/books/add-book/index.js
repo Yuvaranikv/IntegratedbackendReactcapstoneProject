@@ -269,7 +269,14 @@ const AddNewBook = () => {
 
   const fetchAuthors = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/authors/all`);
+      const token = localStorage.getItem('jwtToken');
+      console.log(token);
+      const response = await axios.get(`http://localhost:3000/authors/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          Accept: 'application/json'
+        }
+      });
       const  authors  = response.data;
       setAuthors(authors || []);
       // setAuthors(authors);
@@ -576,7 +583,7 @@ const AddNewBook = () => {
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Sl. No</Table.HeaderCell>
-                  <Table.HeaderCell>Cover Page</Table.HeaderCell>
+                  {/* <Table.HeaderCell>Cover Page</Table.HeaderCell> */}
                   <Table.HeaderCell sorted={direction} onClick={handleSort}>
                     Book
                   </Table.HeaderCell>
@@ -592,14 +599,14 @@ const AddNewBook = () => {
                 {filteredBooks.map((book, index) => (
                   <Table.Row key={book.book_id}>
                     <Table.Cell>{(page - 1) * pageSize + index + 1}</Table.Cell>{" "}
-                    <Table.Cell style={{ width: "100px" }}>
+                    {/* <Table.Cell style={{ width: "100px" }}>
                       <img
                         className="zoom-on-hover"
                         src={book.imageURL}
                         alt="Cover Page"
                         style={{ width: "50px", height: "70px" }}
                       />
-                    </Table.Cell>
+                    </Table.Cell> */}
                     {/* Display serial number */}
                     <Table.Cell>{book.title}</Table.Cell>
                     <Table.Cell>{book.author?.name}</Table.Cell>{" "}
